@@ -82,11 +82,15 @@ it('Find pet by status', () => {
 it('Update pet', () => {
   cy.log(`Update pet with form data with id: ${pet.id}`)
 
-  pet.name = 'Homework';
-  pet.status = 'sold'
   cy.request({
     method: 'POST',
-    url: `/pet/${pet.id}`
+    url: `/pet/${pet.id}`,
+    form: true,
+    body: {
+      petId: pet.id,
+      name: pet.name,
+      status: pet.status
+    }
   }).then( response => {
     expect(response.status).to.be.equal(200);
   })
